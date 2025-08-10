@@ -1,6 +1,6 @@
 # @madtyping/keyboard-localizations
 
-A comprehensive library of keyboard layout definitions including physical layouts (ANSI, ISO) and logical layouts (QWERTY, QWERTZ, AZERTY, etc.) with full TypeScript support.
+A comprehensive library of keyboard localization layouts providing physical layouts (ANSI, ISO) and regional/language-specific character mappings with full TypeScript support.
 
 ## Installation
 
@@ -19,6 +19,7 @@ import {
   LogicalLayout,
   KeyMapping,
   CharacterMapping,
+  KeyDefinition,
   OSType
 } from '@madtyping/keyboard-localizations';
 ```
@@ -27,27 +28,31 @@ import {
 
 ```typescript
 import {
-  getAvailablePhysicalLayouts,
-  getAvailableLogicalLayouts,
-  getAvailableKeyboardLayouts,
-  getKeyboardLayoutById,
-  getKeyboardLayoutsByOS
+  getKeyboardLayout,
+  getKeyboardLocalizationById,
+  keyboardLocalizations,
+  ansiPhysicalLayout,
+  isoPhysicalLayout,
+  ansiMacPhysicalLayout,
+  isoMacPhysicalLayout,
+  extendKeyboardLayout,
+  mergeLogicalLayouts,
+  createKeyboardLayout,
+  validateKeyboardLayout,
+  getDeadKeys,
+  getCharactersForKey,
+  modifierCodes
 } from '@madtyping/keyboard-localizations';
 
-// Get all available physical layouts
-const physicalLayouts = getAvailablePhysicalLayouts();
-
-// Get all available logical layouts
-const logicalLayouts = getAvailableLogicalLayouts();
-
-// Get all complete keyboard layouts
-const keyboardLayouts = getAvailableKeyboardLayouts();
-
 // Get a specific layout by ID
-const usLayout = getKeyboardLayoutById('us-qwerty-ansi');
+const usLayout = getKeyboardLayout('en-us-iso-windows');
 
-// Get layouts for a specific OS
-const windowsLayouts = getKeyboardLayoutsByOS('windows');
+// Get all available layouts
+const allLayouts = keyboardLocalizations;
+
+// Work with physical layouts
+const ansiLayout = ansiPhysicalLayout;
+const isoLayout = isoPhysicalLayout;
 ```
 
 ## Layout Structure
@@ -58,15 +63,15 @@ Define the physical arrangement of keys including:
 - Factor-based sizing for scalable rendering
 - Support for different form factors (ANSI, ISO, etc.)
 
-### Logical Layouts
-Define character mappings including:
+### Localization Layouts
+Define regional/language-specific character mappings including:
 - Base characters and shifted variants
 - AltGr (Alt Graph) combinations
 - Dead key sequences for accented characters
 - OS-specific modifier combinations
 
 ### Complete Layouts
-Combine physical and logical layouts for complete keyboard definitions ready for rendering or input processing.
+Combine physical and localization layouts for complete keyboard definitions ready for rendering or input processing.
 
 ## Contributing
 
@@ -74,15 +79,34 @@ We welcome contributions of new keyboard layouts! To contribute:
 
 1. Fork the repository
 2. Add your layout JSON files to the appropriate directories:
-   - `src/layouts/physical/` for physical layouts
-   - `src/layouts/logical/` for logical layouts  
-   - `src/layouts/complete/` for complete layouts
+   - `src/physicalLayouts/` for physical layouts
+   - `src/localizations/` for localization layouts  
 3. Update the index files to import your layouts
 4. Submit a pull request
 
 ### Layout Generation
 
-Use the [Keyboard Layout Builder](https://github.com/madtyping/keyboard-layout-builder) to generate layout JSON files by typing on your physical keyboard.
+## Available Layouts
+
+### Physical Layouts
+- `ansiPhysicalLayout` - Standard ANSI layout
+- `isoPhysicalLayout` - Standard ISO layout  
+- `ansiMacPhysicalLayout` - ANSI layout for Mac
+- `isoMacPhysicalLayout` - ISO layout for Mac
+
+### Keyboard Localizations
+- `en-us-iso-windows` - English (US) with ISO physical layout for Windows
+- `cs-cz-iso-windows` - Czech with ISO physical layout for Windows
+
+## Utility Functions
+
+- `extendKeyboardLayout()` - Extend a layout with additional character mappings
+- `mergeLogicalLayouts()` - Merge two logical layouts
+- `createKeyboardLayout()` - Create a new keyboard layout
+- `validateKeyboardLayout()` - Validate layout against physical definition
+- `getDeadKeys()` - Get all dead keys from a layout
+- `getCharactersForKey()` - Get all characters for a specific key
+- `modifierCodes` - Map of available modifier key codes
 
 ## Types Reference
 
@@ -119,7 +143,7 @@ type PhysicalLayout = {
 ```
 
 ### LogicalLayout
-Maps key codes to character outputs:
+Maps key codes to localized character outputs:
 
 ```typescript
 type LogicalLayout = Record<string, KeyMapping>;
@@ -130,8 +154,8 @@ Complete keyboard definition:
 
 ```typescript
 type KeyboardLayout = {
-  label: string; // e.g., 'US-QWERTY-ANSI'
-  id: string;
+  label: string; // e.g., 'English (US) - ISO (windows)'
+  id: string; // e.g., 'en-us-iso-windows'
   physical: PhysicalLayout;
   logical: LogicalLayout;
   os: OSType;

@@ -19,15 +19,6 @@ export type KeyMapping = {
 export type OSType = 'mac' | 'windows' | 'linux';
 
 /**
- * Helper type to identify if a key mapping contains dead keys
- */
-export type DeadKeyInfo = {
-  isDead: boolean;
-  deadChar?: string;  // The actual dead character (´, ^, ¨, ˇ, etc.)
-  combinations?: Record<string, string>; // Optional: common combinations like {a: "á", e: "é"}
-};
-
-/**
  * Represents a single key's physical properties for rendering.
  * Uses numeric factors that multiply with a base size for consistent scaling.
  */
@@ -70,14 +61,4 @@ export type KeyboardLayout = {
   physical: PhysicalLayout;
   logical: LogicalLayout;
   os: OSType;
-};
-
-/**
- * Represents a keyboard language localization
- */
-export type KeyboardLocalization = {
-  /** Unique identifier for the localization (e.g., 'en-us', 'de-de') */
-  id: string;
-  /** Human-readable label for the localization (e.g., 'English (US)', 'German (Germany)') */
-  label: string;
 };

@@ -1,6 +1,6 @@
 {
   "name": "@madtyping/keyboard-localizations",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Keyboard layout definitions and types for physical and logical keyboard layouts",
   "type": "module",
   "main": "dist/index.js",
