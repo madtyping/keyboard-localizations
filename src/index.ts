@@ -9,7 +9,7 @@ export * from './localizations';
 export * from './utils';
 
 // Main function to get keyboard layouts
-import {getKeyboardLocalizationById} from './localizations/index.js';
+import {getKeyboardLocalizationById} from './localizations';
 
 export function getKeyboardLayout(id: string) {
   return getKeyboardLocalizationById(id);
