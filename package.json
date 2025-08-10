@@ -1,0 +1,43 @@
+{
+  "name": "@madtyping/keyboard-localizations",
+  "version": "0.0.1",
+  "description": "Keyboard layout definitions and types for physical and logical keyboard layouts",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "keyboard",
+    "layout",
+    "localization",
+    "typing",
+    "physical-layout",
+    "logical-layout",
+    "international"
+  ],
+  "author": "madtyping",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madtyping/keyboard-localizations.git"
+  },
+  "bugs": {
+    "url": "https://github.com/madtyping/keyboard-localizations/issues"
+  },
+  "homepage": "https://github.com/madtyping/keyboard-localizations#readme",
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
