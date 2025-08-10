@@ -78,11 +78,12 @@ Combine physical and localization layouts for complete keyboard definitions read
 We welcome contributions of new keyboard layouts! To contribute:
 
 1. Fork the repository
-2. Add your layout JSON files to the appropriate directories:
+2. Generate layout JSON files using the [Keyboard Layout Builder](https://keyboard.madtyping.com/) by typing on your physical keyboard
+3. Convert the JSON to TypeScript files and add them to the appropriate directories:
    - `src/physicalLayouts/` for physical layouts
-   - `src/localizations/` for localization layouts  
-3. Update the index files to import your layouts
-4. Submit a pull request
+   - `src/localizations/` for complete keyboard localizations
+4. Update the index files to import your layouts
+5. Submit a pull request
 
 ### Layout Generation
 
