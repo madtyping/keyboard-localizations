@@ -545,8 +545,7 @@ export const esEsIsoWindows: KeyboardLayout = {
           "char": "ñ",
           "modifiers": [
             []
-          ],
-          "sequence": "BracketLeft+Semicolon"
+          ]
         },
         {
           "char": "Ñ",

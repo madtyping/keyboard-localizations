@@ -1128,8 +1128,7 @@ export const deDeIsoWindows: KeyboardLayout = {
           "char": "ö",
           "modifiers": [
             []
-          ],
-          "sequence": "Equal+Semicolon"
+          ]
         },
         {
           "char": "Ö",
