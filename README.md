@@ -1,6 +1,6 @@
 # @madtyping/keyboard-localizations
 
-A comprehensive library of keyboard localization layouts providing physical layouts (ANSI, ISO) and regional/language-specific character mappings with full TypeScript support.
+Keyboard physical layouts and localization definitions for Mad Typing tools, with full TypeScript support. The package includes reusable physical layouts, regional keyboard localizations, base key metadata for custom layout builders, and helpers for validating and composing layouts.
 
 ## Installation
 
@@ -13,28 +13,38 @@ npm install @madtyping/keyboard-localizations
 ### Importing Types
 
 ```typescript
-import {
+import type {
   KeyboardLayout,
+  KeyboardLocalization,
   PhysicalLayout,
   LogicalLayout,
+  KeyDefinition,
   KeyMapping,
   CharacterMapping,
-  KeyDefinition,
+  EnterShapeId,
   OSType
 } from '@madtyping/keyboard-localizations';
 ```
 
-### Working with Layouts
+### Working With Layouts
 
 ```typescript
 import {
   getKeyboardLayout,
   getKeyboardLocalizationById,
   keyboardLocalizations,
+  physicalLayouts,
   ansiPhysicalLayout,
   isoPhysicalLayout,
   ansiMacPhysicalLayout,
   isoMacPhysicalLayout,
+  jisPhysicalLayout,
+  baseKeyCodes,
+  baseKeyGroups,
+  baseKeyByCode,
+  enterShapeSpecs,
+  computeEnterGeometry,
+  renderEnterShape,
   extendKeyboardLayout,
   mergeLogicalLayouts,
   createKeyboardLayout,
@@ -44,75 +54,157 @@ import {
   modifierCodes
 } from '@madtyping/keyboard-localizations';
 
-// Get a specific layout by ID
 const usLayout = getKeyboardLayout('en-us-iso-windows');
+const allLocalizations = keyboardLocalizations;
+const allPhysicalLayouts = physicalLayouts;
 
-// Get all available layouts
-const allLayouts = keyboardLocalizations;
-
-// Work with physical layouts
-const ansiLayout = ansiPhysicalLayout;
-const isoLayout = isoPhysicalLayout;
+const enterGeometry = computeEnterGeometry('iso-l');
+const spaceDefaults = baseKeyByCode.get('Space');
 ```
 
-## Layout Structure
+## Layout Model
 
 ### Physical Layouts
-Define the physical arrangement of keys including:
-- Key positions and dimensions
-- Factor-based sizing for scalable rendering
-- Support for different form factors (ANSI, ISO, etc.)
+
+Physical layouts define the physical grid of keys: `KeyboardEvent.code`, row placement, optional label overrides, optional size factors, optional absolute positions, and optional Enter key shape presets.
+
+Included layouts:
+
+- `ansiPhysicalLayout` - Standard ANSI layout
+- `isoPhysicalLayout` - Standard ISO layout with shaped ISO Enter
+- `ansiMacPhysicalLayout` - ANSI layout for Mac
+- `isoMacPhysicalLayout` - ISO layout for Mac with shaped ISO Enter
+- `jisPhysicalLayout` - JIS layout with Japanese IME keys
+- `physicalLayouts` - Array containing all included physical layouts
+
+### Custom Physical Layouts
+
+Custom layouts use the same `PhysicalLayout` and `KeyDefinition` types as the bundled layouts. `row` is required. Size and position fields are optional:
+
+- `widthFactor` - horizontal slot span; defaults to `1`
+- `heightFactor` - vertical slot span; defaults to `1`, ignored when `enterShape` is set
+- `xOffset` - explicit horizontal position in slot units from the row start
+- `yOffset` - explicit vertical position in slot units from the layout top
+- `enterShape` - preset shaped Enter geometry: `'ansi-bar' | 'iso-l' | 'iso-l-stepped' | 'bae'`
+
+Slot units are renderer-neutral: one slot corresponds to `baseSize + gap` in the consuming app. A width of `1.5` means `1.5 * baseSize + 0.5 * gap`.
+
+```typescript
+import type {PhysicalLayout} from '@madtyping/keyboard-localizations';
+
+export const customPhysicalLayout: PhysicalLayout = {
+  label: 'Custom Split ISO',
+  id: 'custom-split-iso',
+  definition: [
+    {code: 'KeyQ', row: 1, xOffset: 0},
+    {code: 'KeyW', row: 1},
+    {code: 'Enter', label: 'Enter', row: 1, enterShape: 'iso-l'},
+    {code: 'Space', label: 'Space', row: 4, widthFactor: 3, xOffset: 4.5},
+    {code: 'AltRight', label: 'AltGr', row: 4, widthFactor: 1.25}
+  ]
+};
+```
+
+### General Definitions
+
+The package exports general key and Enter shape metadata used by custom layout builders:
+
+- `baseKeyCodes` - curated base `KeyboardEvent.code` list for letters, digits, punctuation, modifiers, whitespace, editing, and international/IME keys
+- `baseKeyGroups` - display groups for the base key list
+- `baseKeyByCode` - lookup map for base key metadata
+- `enterShapeSpecs` / `enterShapeIds` - available Enter key shape presets
+- `computeEnterGeometry()` - returns shape bounds and rect offsets in base units
+- `renderEnterShape()` - returns renderer-friendly dimensions and clip path data
 
 ### Localization Layouts
-Define regional/language-specific character mappings including:
+
+Localization layouts define regional/language-specific character mappings:
+
 - Base characters and shifted variants
-- AltGr (Alt Graph) combinations
+- AltGr combinations
 - Dead key sequences for accented characters
 - OS-specific modifier combinations
 
+Each `CharacterMapping` is character-first: one entry per produced character, with `modifiers` listing every modifier path that can produce it.
+
 ### Complete Layouts
-Combine physical and localization layouts for complete keyboard definitions ready for rendering or input processing.
 
-## Contributing
+A `KeyboardLayout` combines localization metadata, one physical layout, one logical character map, and an OS type:
 
-We welcome contributions of new keyboard layouts! To contribute:
+```typescript
+type KeyboardLayout = {
+  label: string;
+  id: string;
+  languageCode: string;
+  language: string;
+  physical: PhysicalLayout;
+  logical: LogicalLayout;
+  os: OSType;
+};
+```
 
-1. Fork the repository
-2. Generate layout JSON files using the [Keyboard Layout Builder](https://keyboard.madtyping.com/) by typing on your physical keyboard
-3. Convert the JSON to TypeScript files and add them to the appropriate directories:
-   - `src/physicalLayouts/` for physical layouts
-   - `src/localizations/` for complete keyboard localizations
-4. Update the index files to import your layouts
-5. Submit a pull request
+## Available Keyboard Localizations
 
-### Layout Generation
-
-## Available Layouts
-
-### Physical Layouts
-- `ansiPhysicalLayout` - Standard ANSI layout
-- `isoPhysicalLayout` - Standard ISO layout  
-- `ansiMacPhysicalLayout` - ANSI layout for Mac
-- `isoMacPhysicalLayout` - ISO layout for Mac
-
-### Keyboard Localizations
+- `azerty-fr-iso-windows` - AZERTY (French) with ISO physical layout for Windows
+- `cs-cz-iso-windows` - Czech (Czech Republic) with ISO physical layout for Windows
+- `de-de-iso-windows` - German (Germany) with ISO physical layout for Windows
+- `en-uk-iso-windows` - English (UK) with ISO physical layout for Windows
 - `en-us-iso-windows` - English (US) with ISO physical layout for Windows
-- `cs-cz-iso-windows` - Czech with ISO physical layout for Windows
+- `es-es-iso-windows` - Spanish (Spain) with ISO physical layout for Windows
 
 ## Utility Functions
 
 - `extendKeyboardLayout()` - Extend a layout with additional character mappings
 - `mergeLogicalLayouts()` - Merge two logical layouts
-- `createKeyboardLayout()` - Create a new keyboard layout
-- `validateKeyboardLayout()` - Validate layout against physical definition
+- `createKeyboardLayout()` - Create a complete keyboard layout with language metadata
+- `validateKeyboardLayout()` - Remove logical mappings for keys not present in the physical definition
 - `getDeadKeys()` - Get all dead keys from a layout
 - `getCharactersForKey()` - Get all characters for a specific key
 - `modifierCodes` - Map of available modifier key codes
 
+`createKeyboardLayout()` signature:
+
+```typescript
+createKeyboardLayout(
+  id,
+  label,
+  languageCode,
+  language,
+  physical,
+  logical,
+  os
+);
+```
+
 ## Types Reference
 
+### KeyDefinition
+
+```typescript
+type KeyDefinition = {
+  code: string;
+  row: number;
+  label?: string;
+  widthFactor?: number;
+  heightFactor?: number;
+  xOffset?: number;
+  yOffset?: number;
+  enterShape?: EnterShapeId;
+};
+```
+
+### CharacterMapping
+
+```typescript
+type CharacterMapping = {
+  char: string;
+  modifiers: string[][];
+  sequence?: string;
+  isDead?: true;
+};
+```
+
 ### KeyMapping
-Represents all possible characters a single physical key can produce:
 
 ```typescript
 type KeyMapping = {
@@ -120,52 +212,39 @@ type KeyMapping = {
 };
 ```
 
-### CharacterMapping
-Defines how a character is produced:
-
-```typescript
-type CharacterMapping = {
-  char: string;
-  modifiers: string[][]; // e.g., [['ShiftLeft']]
-  sequence?: string; // For dead keys: 'ctrl+alt+digit5→e'
-  isDead?: true;
-};
-```
-
 ### PhysicalLayout
-Defines the physical arrangement of keys:
 
 ```typescript
 type PhysicalLayout = {
-  label: string; // e.g., 'ANSI'
+  label: string;
   id: string;
   definition: KeyDefinition[];
 };
 ```
 
 ### LogicalLayout
-Maps key codes to localized character outputs:
 
 ```typescript
 type LogicalLayout = Record<string, KeyMapping>;
 ```
 
-### KeyboardLayout
-Complete keyboard definition:
+## Contributing
 
-```typescript
-type KeyboardLayout = {
-  label: string; // e.g., 'English (US) - ISO (windows)'
-  id: string; // e.g., 'en-us-iso-windows'
-  physical: PhysicalLayout;
-  logical: LogicalLayout;
-  os: OSType;
-};
-```
+We welcome contributions of new keyboard layouts.
+
+1. Fork the repository.
+2. Generate layout JSON using the [Keyboard Layout Builder](https://keyboard.madtyping.com/) by typing on your physical keyboard.
+3. Convert the JSON to TypeScript and add it to the appropriate directory:
+   - `src/physicalLayouts/` for reusable physical layouts
+   - `src/localizations/` for complete keyboard localizations
+4. Register new physical layouts in `src/physicalLayouts/index.ts`.
+5. Register new localizations in `src/localizations/index.ts`.
+6. Run `npm run build`.
+7. Submit a pull request.
 
 ## License
 
-MIT License - See LICENSE file for details.
+MIT License - see `LICENSE` for details.
 
 ## Repository
 
