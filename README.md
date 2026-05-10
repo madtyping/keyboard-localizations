@@ -148,6 +148,9 @@ type KeyboardLayout = {
 - `azerty-fr-iso-windows` - AZERTY (French) with ISO physical layout for Windows
 - `cs-cz-iso-windows` - Czech (Czech Republic) with ISO physical layout for Windows
 - `de-de-iso-windows` - German (Germany) with ISO physical layout for Windows
+- `en-us-ansi-mac` - English (US) with ANSI physical layout for macOS
+- `en-us-ansi-windows` - English (US) with ANSI physical layout for Windows
+- `en-us-iso-mac` - English (US) with ISO physical layout for macOS
 - `en-uk-iso-windows` - English (UK) with ISO physical layout for Windows
 - `en-us-iso-windows` - English (US) with ISO physical layout for Windows
 - `es-es-iso-windows` - Spanish (Spain) with ISO physical layout for Windows

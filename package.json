@@ -1,6 +1,6 @@
 {
   "name": "@madtyping/keyboard-localizations",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Keyboard layout definitions and types for physical and logical keyboard layouts",
   "type": "module",
   "main": "dist/index.cjs.js",
@@ -21,7 +21,7 @@
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly",
     "prepublishOnly": "npm run build",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "npm run build && node --test test/*.test.mjs"
   },
   "keywords": [
     "keyboard",
