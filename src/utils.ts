@@ -64,6 +64,8 @@ export function mergeLogicalLayouts(
 export function createKeyboardLayout(
   id: string,
   label: string,
+  languageCode: string,
+  language: string,
   physical: PhysicalLayout,
   logical: LogicalLayout,
   os: 'mac' | 'windows' | 'linux'
@@ -71,6 +73,8 @@ export function createKeyboardLayout(
   return {
     id,
     label,
+    languageCode,
+    language,
     physical,
     logical,
     os

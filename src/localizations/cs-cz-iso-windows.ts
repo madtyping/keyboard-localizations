@@ -4,6 +4,8 @@ import type {KeyboardLayout} from '../types';
 export const csCzIsoWindows: KeyboardLayout = {
   "label": "Czech (Czech Republic) - ISO (windows)",
   "id": "cs-cz-iso-windows",
+  "languageCode": "cs-cz",
+  "language": "Czech (Czech Republic)",
   "os": "windows",
   "logical": {
     "Backquote": {

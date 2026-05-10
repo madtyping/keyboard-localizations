@@ -4,6 +4,8 @@ import type {KeyboardLayout} from '../types';
 export const deDeIsoWindows: KeyboardLayout = {
   "label": "German (Germany) - ISO (windows)",
   "id": "de-de-iso-windows",
+  "languageCode": "de-de",
+  "language": "German (Germany)",
   "os": "windows",
   "logical": {
     "Digit1": {

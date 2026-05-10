@@ -4,6 +4,8 @@ import type {KeyboardLayout} from '../types';
 export const azertyFrIsoWindows: KeyboardLayout = {
   "label": "AZERTY (French) - ISO (windows)",
   "id": "azerty-fr-iso-windows",
+  "languageCode": "azerty-fr",
+  "language": "AZERTY (French)",
   "os": "windows",
   "logical": {
     "Backquote": {

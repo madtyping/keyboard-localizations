@@ -5,6 +5,8 @@ import type {KeyboardLayout} from '../types';
 export const enUkIsoWindows: KeyboardLayout = {
   "label": "English (UK) - ISO (windows)",
   "id": "en-uk-iso-windows",
+  "languageCode": "en-uk",
+  "language": "English (UK)",
   "os": "windows",
   "logical": {
     "Backquote": {

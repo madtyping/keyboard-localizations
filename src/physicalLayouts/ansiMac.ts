@@ -49,7 +49,7 @@ export const ansiMacPhysicalLayout: PhysicalLayout = {
     {code: 'KeyL', row: 2},
     {code: 'Semicolon', row: 2},
     {code: 'Quote', row: 2},
-    {code: 'Enter', label: 'Return', row: 2, widthFactor: 2.35},
+    {code: 'Enter', label: 'Return', row: 2, widthFactor: 2.25},
 
     // Row 3: ZXCV row
     {code: 'ShiftLeft', label: 'Shift', row: 3, widthFactor: 2.25},
@@ -63,15 +63,15 @@ export const ansiMacPhysicalLayout: PhysicalLayout = {
     {code: 'Comma', row: 3},
     {code: 'Period', row: 3},
     {code: 'Slash', row: 3},
-    {code: 'ShiftRight', label: 'Shift', row: 3, widthFactor: 2.95},
+    {code: 'ShiftRight', label: 'Shift', row: 3, widthFactor: 2.75},
 
-    // Row 4: Bottom row (Mac arrangement: Control -> Option -> Command -> Space -> Command -> Option -> Control)
-    {code: 'ControlLeft', label: 'Control', row: 4, widthFactor: 1.4},
-    {code: 'AltLeft', label: 'Option', row: 4, widthFactor: 1.4},
-    {code: 'MetaLeft', label: '⌘', row: 4, widthFactor: 1.4},
-    {code: 'Space', label: 'Space', row: 4, widthFactor: 7.22},
-    {code: 'MetaRight', label: '⌘', row: 4, widthFactor: 1.4},
-    {code: 'AltRight', label: 'Option', row: 4, widthFactor: 1.4},
-    {code: 'ControlRight', label: 'Control', row: 4, widthFactor: 1.4},
+    // Row 4: Bottom row (Mac arrangement)
+    {code: 'ControlLeft', label: 'Control', row: 4, widthFactor: 1.25},
+    {code: 'AltLeft', label: 'Option', row: 4, widthFactor: 1.25},
+    {code: 'MetaLeft', label: '⌘', row: 4, widthFactor: 1.5},
+    {code: 'Space', label: 'Space', row: 4, widthFactor: 7},
+    {code: 'MetaRight', label: '⌘', row: 4, widthFactor: 1.5},
+    {code: 'AltRight', label: 'Option', row: 4, widthFactor: 1.25},
+    {code: 'ControlRight', label: 'Control', row: 4, widthFactor: 1.25},
   ]
 };

@@ -5,6 +5,8 @@ import type {KeyboardLayout} from '../types';
 export const esEsIsoWindows: KeyboardLayout = {
   "label": "Spanish (Spain) - ISO (windows)",
   "id": "es-es-iso-windows",
+  "languageCode": "es-es",
+  "language": "Spanish (Spain)",
   "os": "windows",
   "logical": {
     "BracketRight": {

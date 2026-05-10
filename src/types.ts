@@ -19,8 +19,19 @@ export type KeyMapping = {
 export type OSType = 'mac' | 'windows' | 'linux';
 
 /**
+ * Helper type to identify if a key mapping contains dead keys
+ */
+export type DeadKeyInfo = {
+  isDead: boolean;
+  deadChar?: string;  // The actual dead character (´, ^, ¨, ˇ, etc.)
+  combinations?: Record<string, string>; // Optional: common combinations like {a: "á", e: "é"}
+};
+
+import type {EnterShapeId} from './enterShapes.js';
+
+/**
  * Represents a single key's physical properties for rendering.
- * Uses numeric factors that multiply with a base size for consistent scaling.
+ * Positions and spans are in **slot units** where 1 slot = baseSize + gap (px).
  */
 export type KeyDefinition = {
   /** The unique, unchanging identifier for the key's physical location (from event.code). */
@@ -29,10 +40,16 @@ export type KeyDefinition = {
   row: number;
   /** The visual label for special keys (e.g., 'Enter', 'Shift'). Overrides the logical mapping for display. */
   label?: string;
-  /** Width multiplier for the base size (e.g., 1.5 for Tab, 2.5 for Space). Defaults to 1. */
+  /** Slot span on x (e.g., 1.5 for Tab, 6.25 for Space). Defaults to 1. A span of n renders `n*base + (n-1)*gap` px wide. */
   widthFactor?: number;
-  /** Height multiplier for the base size (e.g., 1 for normal keys, 2.1 for tall Enter). Defaults to 1. */
+  /** Slot span on y. Defaults to 1. Ignored when enterShape is set. */
   heightFactor?: number;
+  /** Explicit x position (in slot units) from the row start. If omitted, the key packs sequentially after the previous key in the row. */
+  xOffset?: number;
+  /** Explicit y position (in slot units) from the canvas top. When set, overrides the row-based y placement, enabling free vertical positioning. When omitted, the key renders at the position dictated by its `row` (row-based fallback). */
+  yOffset?: number;
+  /** Preset shape for the Enter key. Drives geometry (width/height/tail) and renders via SVG clip-path. */
+  enterShape?: EnterShapeId;
 };
 
 /**
@@ -58,7 +75,19 @@ export type LogicalLayout = Record<string, KeyMapping>;
 export type KeyboardLayout = {
   label: string; // A descriptive name, e.g., 'US-QWERTY-ANSI'
   id: string; // A unique identifier for the keyboard layout
+  languageCode: string; // KeyboardLocalization.id, e.g. 'en-us'
+  language: string; // KeyboardLocalization.label, e.g. 'English (US)'
   physical: PhysicalLayout;
   logical: LogicalLayout;
   os: OSType;
+};
+
+/**
+ * Represents a keyboard language localization
+ */
+export type KeyboardLocalization = {
+  /** Unique identifier for the localization (e.g., 'en-us', 'de-de') */
+  id: string;
+  /** Human-readable label for the localization (e.g., 'English (US)', 'German (Germany)') */
+  label: string;
 };

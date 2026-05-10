@@ -1,6 +1,6 @@
 {
   "name": "@madtyping/keyboard-localizations",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Keyboard layout definitions and types for physical and logical keyboard layouts",
   "type": "module",
   "main": "dist/index.cjs.js",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/node": "^24.2.1",
     "typescript": "^5.9.2",
-    "vite": "^7.1.1"
+    "vite": "^7.3.3"
   },
   "engines": {
     "node": ">=22.0.0"

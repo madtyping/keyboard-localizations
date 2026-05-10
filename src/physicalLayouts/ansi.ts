@@ -49,7 +49,7 @@ export const ansiPhysicalLayout: PhysicalLayout = {
     {code: 'KeyL', row: 2},
     {code: 'Semicolon', row: 2},
     {code: 'Quote', row: 2},
-    {code: 'Enter', label: 'Enter', row: 2, widthFactor: 2.35},
+    {code: 'Enter', label: 'Enter', row: 2, widthFactor: 2.25},
 
     // Row 3: ZXCV row
     {code: 'ShiftLeft', label: 'Shift', row: 3, widthFactor: 2.25},
@@ -63,16 +63,16 @@ export const ansiPhysicalLayout: PhysicalLayout = {
     {code: 'Comma', row: 3},
     {code: 'Period', row: 3},
     {code: 'Slash', row: 3},
-    {code: 'ShiftRight', label: 'Shift', row: 3, widthFactor: 2.95},
+    {code: 'ShiftRight', label: 'Shift', row: 3, widthFactor: 2.75},
 
     // Row 4: Bottom row
-    {code: 'ControlLeft', label: 'Ctrl', row: 4, widthFactor: 1.4},
-      {code: 'MetaLeft', label: 'Win', row: 4, widthFactor: 1.25},
-      {code: 'AltLeft', label: 'Alt', row: 4, widthFactor: 1.4},
-      {code: 'Space', label: 'Space', row: 4, widthFactor: 6.19},
-      {code: 'AltRight', label: 'Alt', row: 4, widthFactor: 1.4},
-      {code: 'MetaRight', label: 'Win', row: 4, widthFactor: 1.25},
-      {code: 'ContextMenu', label: 'Menu', row: 4, widthFactor: 1.25},
-      {code: 'ControlRight', label: 'Ctrl', row: 4, widthFactor: 1.4},
+    {code: 'ControlLeft', label: 'Ctrl', row: 4, widthFactor: 1.25},
+    {code: 'MetaLeft', label: 'Win', row: 4, widthFactor: 1.25},
+    {code: 'AltLeft', label: 'Alt', row: 4, widthFactor: 1.25},
+    {code: 'Space', label: 'Space', row: 4, widthFactor: 6.25},
+    {code: 'AltRight', label: 'Alt', row: 4, widthFactor: 1.25},
+    {code: 'MetaRight', label: 'Win', row: 4, widthFactor: 1.25},
+    {code: 'ContextMenu', label: 'Menu', row: 4, widthFactor: 1.25},
+    {code: 'ControlRight', label: 'Ctrl', row: 4, widthFactor: 1.25},
   ]
 };

@@ -1,5 +1,7 @@
 // Export all types
 export * from './types';
+export * from './baseKeyCodes';
+export * from './enterShapes';
 
 // Export layout data
 export * from './physicalLayouts';

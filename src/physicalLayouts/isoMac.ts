@@ -5,7 +5,7 @@ export const isoMacPhysicalLayout: PhysicalLayout = {
   id: 'iso-mac',
   definition: [
     // Row 0: Number row
-    {code: 'Backquote', row: 0},
+    {code: 'IntlBackslash', row: 0},
     {code: 'Digit1', row: 0},
     {code: 'Digit2', row: 0},
     {code: 'Digit3', row: 0},
@@ -34,8 +34,8 @@ export const isoMacPhysicalLayout: PhysicalLayout = {
     {code: 'KeyP', row: 1},
     {code: 'BracketLeft', row: 1},
     {code: 'BracketRight', row: 1},
-    // ISO: L-shaped Enter key (tall, spans 2 rows)
-    {code: 'Enter', label: 'Return', row: 1, widthFactor: 1.5, heightFactor: 2.12},
+    // ISO: L-shaped Enter key (tail extends into row 2)
+    {code: 'Enter', label: 'Return', row: 1, enterShape: 'iso-l'},
 
     // Row 2: ASDF row
     {code: 'CapsLock', label: 'Caps Lock', row: 2, widthFactor: 1.75},
@@ -56,7 +56,7 @@ export const isoMacPhysicalLayout: PhysicalLayout = {
     // Row 3: ZXCV row
     {code: 'ShiftLeft', label: 'Shift', row: 3, widthFactor: 1.25},
     // ISO: Additional key next to left Shift
-    {code: 'IntlBackslash', row: 3},
+    {code: 'Backquote', row: 3},
     {code: 'KeyZ', row: 3},
     {code: 'KeyX', row: 3},
     {code: 'KeyC', row: 3},
@@ -67,15 +67,15 @@ export const isoMacPhysicalLayout: PhysicalLayout = {
     {code: 'Comma', row: 3},
     {code: 'Period', row: 3},
     {code: 'Slash', row: 3},
-    {code: 'ShiftRight', label: 'Shift', row: 3, widthFactor: 2.85},
+    {code: 'ShiftRight', label: 'Shift', row: 3, widthFactor: 2.75},
 
-    // Row 4: Bottom row (Mac arrangement: Control -> Option -> Command -> Space -> Command -> Option -> Control)
-    {code: 'ControlLeft', label: 'Control', row: 4, widthFactor: 1.4},
-    {code: 'AltLeft', label: 'Option', row: 4, widthFactor: 1.4},
-    {code: 'MetaLeft', label: '⌘', row: 4, widthFactor: 1.4},
-    {code: 'Space', label: 'Space', row: 4, widthFactor: 7.22},
-    {code: 'MetaRight', label: '⌘', row: 4, widthFactor: 1.4},
-    {code: 'AltRight', label: 'Option', row: 4, widthFactor: 1.4},
-    {code: 'ControlRight', label: 'Control', row: 4, widthFactor: 1.4},
+    // Row 4: Bottom row (Mac arrangement)
+    {code: 'ControlLeft', label: 'Control', row: 4, widthFactor: 1.25},
+    {code: 'AltLeft', label: 'Option', row: 4, widthFactor: 1.25},
+    {code: 'MetaLeft', label: '⌘', row: 4, widthFactor: 1.5},
+    {code: 'Space', label: 'Space', row: 4, widthFactor: 7},
+    {code: 'MetaRight', label: '⌘', row: 4, widthFactor: 1.5},
+    {code: 'AltRight', label: 'Option', row: 4, widthFactor: 1.25},
+    {code: 'ControlRight', label: 'Control', row: 4, widthFactor: 1.25},
   ]
 };
